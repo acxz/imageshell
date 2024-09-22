@@ -14,7 +14,7 @@
 # input array names cannot be the same as the array name in function
 # https://stackoverflow.com/a/33777659
 
-function stitch_images () {
+function imgshl_stitch_images () {
     local -n _images
     local scale
     local cache_dir
@@ -61,7 +61,7 @@ function stitch_images () {
     fi
 }
 
-function display_images () {
+function imgshl_display_images () {
     local display_file
     local pixel_perfect
 
@@ -76,7 +76,7 @@ function display_images () {
     fi
 }
 
-function cleanup_images () {
+function imgshl_cleanup_images () {
     local -n _images
     local cache
     local cache_dir
@@ -95,7 +95,7 @@ function cleanup_images () {
     rm -f "$cache_dir/t.png"
 }
 
-function stitch_ani_images () {
+function imgshl_stitch_ani_images () {
     local -n _images
     local scale
     local cache
@@ -219,13 +219,13 @@ function stitch_ani_images () {
     fi
 }
 
-function display_ani_images () {
+function imgshl_display_ani_images () {
     local display_file
     display_file="${1:?}"
     chafa --format symbols --symbols all "$display_file"
 }
 
-function _display () {
+function imgshl_display () {
     local -n __images
     local use_ani
     local scale
@@ -242,11 +242,11 @@ function _display () {
 
     # Stitch images and display
     if [ $use_ani == 0 ]; then
-        stitch_images __images $scale $cache_dir
-        display_images "$display_file" $pixel_perfect
-	cleanup_images __images $cache $cache_dir
+        imgshl_stitch_images __images $scale $cache_dir
+        imgshl_display_images "$display_file" $pixel_perfect
+        imgshl_cleanup_images __images $cache $cache_dir
     else
-	stitch_ani_images __images $scale $cache $cache_dir
-        display_ani_images "$display_file"
+        imgshl_stitch_ani_images __images $scale $cache $cache_dir
+        imgshl_display_ani_images "$display_file"
     fi
 }
