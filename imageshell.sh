@@ -50,12 +50,12 @@ function imgshl_stitch_images () {
             done
 
             # Stitch them
-            magick "${_images[@]/%/s}" +append "$cache_dir/t.png"
+            magick "${_images[@]/%/s}" +append "$cache_dir/t.tiff"
         else
             # Stitch them
-            magick -background 'rgba(0, 0, 0, 0' "${_images[@]}" -gravity South +append "$cache_dir/t.png"
+            magick -background 'rgba(0, 0, 0, 0' "${_images[@]}" -gravity South +append "$cache_dir/t.tiff"
         fi
-        display_file="$cache_dir/t.png"
+        display_file="$cache_dir/t.tiff"
     else
         display_file="${_images[0]}"
     fi
@@ -92,7 +92,7 @@ function imgshl_cleanup_images () {
         rm -f "${_i}s"
         rm -f "${_i}p"
     done
-    rm -f "$cache_dir/t.png"
+    rm -f "$cache_dir/t.tiff"
 }
 
 function imgshl_stitch_ani_images () {
